@@ -25,9 +25,9 @@
         <td><%= user.zip_code %></td>
         <td><%= user.company %></td>
         <td><%= user.company_description %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user, class:"badge badge-secondary"%></td>
+        <td><%= link_to 'Edit', edit_user_path(user), class:"badge badge-secondary"%></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"badge badge-danger" %></td>
       </tr>
       <% end %>
     </tbody>
