@@ -8,6 +8,11 @@ body {
 h1 {
   color: #eee;
 }
+h2 {
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
@@ -42,6 +47,9 @@ div {
   padding: 2px;
   background-color: red;
   display: table;
+}
+.actions {
+  padding-top: 15px;
 }
 
 #error_explanation {
