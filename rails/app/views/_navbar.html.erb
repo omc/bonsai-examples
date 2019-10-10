@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-dark">
-  <h1 class="navbar-brand">Users</h1>
-  <ul class="nav justify-content-end">
+  <h1>USERS</h1>
+  <ul class="nav">
     <li class="nav-item">
       <%= link_to 'Home', users_path, class:"nav-link active" %>
     </li>
@@ -8,4 +8,8 @@
       <%= link_to 'New User', new_user_path, class:"nav-link active" %>
     </li>
   </ul>
+  <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
 </nav>
