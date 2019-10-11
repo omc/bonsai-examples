@@ -1,5 +1,5 @@
 # Ruby on Rails
-This is a demo application for showing how to use the [elasticsearch-rails](https://github.com/elastic/elasticsearch-rails) gem. This app uses a scaffold and Postgres database.
+This is a demo application for showing how to use the [elasticsearch-rails](https://github.com/elastic/elasticsearch-rails) gem. This app uses a scaffold, a Postgres database, and numerous gems.
 
 ## Getting Started
 These instructions will get you a copy of the app up and running on your local machine for development and testing purposes
@@ -37,7 +37,7 @@ Navigate to http://localhost:3000/ once the Rails server is up and running
 [insert screenshot]
 
 ### Running tests
-We like using Guard to automatically run the specs against files as they are changed. Open another background terminal tab/window and run
+We like using Guard to automatically run the specs against files as they are changed. Open another terminal tab/window and run
 ```
 bundle exec guard start
 ```
