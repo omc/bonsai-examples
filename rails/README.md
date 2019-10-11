@@ -1,24 +1,16 @@
-# README
+# Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a demo application for showing how to use the [elasticsearch-rails](https://github.com/elastic/elasticsearch-rails) gem.
 
-Things you may want to cover:
+## How to Use it Locally
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+git clone git@github.com:omc/bonsai-examples.git
+cd bonsai-examples
+cd rails
+bundle install
+yarn install --check-files
+bundle exec rake db:{create,migrate}
+bundle exec rake seed:users
+bundle exec rails s
+```
