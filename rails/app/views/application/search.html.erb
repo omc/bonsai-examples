@@ -1,0 +1,5 @@
+<% if @results.present? %>
+  <%= render partial: 'search_result', collection: @results %>
+<% else %>
+  Nothing here, chief!
+<% end %>
