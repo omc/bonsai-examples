@@ -2,6 +2,6 @@
 
 class ApplicationController < ActionController::Base
   def search
-    @results = Elasticsearch::Model.search(params[:q]).results
+    @results = Elasticsearch::Model.search(params[:q]).records
   end
 end
