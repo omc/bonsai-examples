@@ -15,6 +15,8 @@
 # it.
 # SimpleCov needs to load before the rest of the codebase
 
+require 'elasticsearch/extensions/test/cluster'
+
 if ENV['RAILS_ENV'] == 'development'
   require 'simplecov'
   require 'simplecov-console'
@@ -28,8 +30,50 @@ if ENV['RAILS_ENV'] == 'development'
     add_filter '/lib/mailers/previews/' # for mailer previews
   end
 end
+
+@es_version = ENV.fetch('ES_VERSION', 'elasticsearch-7.4.0/bin/elasticsearch')
+ENV['BONSAI_URL']='localhost:9250'
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+
+  cluster = Elasticsearch::Extensions::Test::Cluster::Cluster.new(port: 9250, number_of_nodes: 1, timeout: 120, command: @es_version)
+
+  # Start an in-memory cluster for Elasticsearch as needed
+  config.before :all, elasticsearch: true do
+    cluster.start unless cluster.running?
+    ActiveRecord::Base.descendants.each do |model|
+      if model.respond_to?(:__elasticsearch__)
+        begin
+          model.__elasticsearch__.create_index!
+          model.__elasticsearch__.refresh_index!
+        rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
+          # This kills "Index does not exist" errors being written to console
+          # by this: https://github.com/elastic/elasticsearch-rails/blob/738c63efacc167b6e8faae3b01a1a0135cfc8bbb/elasticsearch-model/lib/elasticsearch/model/indexing.rb#L268
+        rescue => e
+          STDERR.puts "There was an error creating the elasticsearch index for #{model.name}: #{e.inspect}"
+        end
+      end
+    end
+  end
+
+  # Stop elasticsearch cluster after test run
+  config.after :suite do
+    ActiveRecord::Base.descendants.each do |model|
+      if model.respond_to?(:__elasticsearch__)
+        begin
+          model.__elasticsearch__.delete_index!
+        rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
+          # This kills "Index does not exist" errors being written to console
+          # by this: https://github.com/elastic/elasticsearch-rails/blob/738c63efacc167b6e8faae3b01a1a0135cfc8bbb/elasticsearch-model/lib/elasticsearch/model/indexing.rb#L268
+        rescue => e
+          STDERR.puts "There was an error removing the elasticsearch index for #{model.name}: #{e.inspect}"
+        end
+      end
+    end
+    cluster.stop if cluster.running?
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

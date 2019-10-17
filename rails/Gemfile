@@ -26,14 +26,15 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
+gem 'bonsai-elasticsearch-rails'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: 'master'
 gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: 'master'
-gem 'bonsai-elasticsearch-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'elasticsearch-extensions'
   gem 'factory_bot_rails'
   gem 'guard'
   gem 'guard-rspec' # continuously run specs on changes

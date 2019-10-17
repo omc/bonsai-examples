@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'elasticsearch/model'
 
 class User < ApplicationRecord
@@ -10,7 +11,7 @@ class User < ApplicationRecord
             :zip_code, presence: true
   validates :email, uniqueness: true
 
-#override the default stringification
+  # override the default stringification
   def to_s
     "#{first_name} #{last_name}"
   end

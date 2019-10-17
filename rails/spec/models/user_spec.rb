@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User, elasticsearch: true, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of :first_name }
     it { is_expected.to validate_presence_of :last_name }
@@ -12,5 +12,23 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of :city }
     it { is_expected.to validate_presence_of :zip_code }
     it { is_expected.to validate_presence_of :company }
+  end
+
+  describe 'elasticsearch' do
+    it 'should initially have no User records' do
+      expect(User.search('*:*').records.length).to eq(0)
+    end
+
+    it 'should update ES when the object is created' do
+      user = create(:user)
+      User.__elasticsearch__.refresh_index!
+      expect(User.search("id:#{user.id}").records.length).to eq(1)
+    end
+
+    it 'should update ES when the object is destroyed' do
+      user = create(:user)
+      user.destroy!
+      expect(User.search("id:#{user.id}").records.length).to eq(0)
+    end
   end
 end

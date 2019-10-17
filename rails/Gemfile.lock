@@ -87,6 +87,9 @@ GEM
       elasticsearch-transport (= 7.3.0)
     elasticsearch-api (7.3.0)
       multi_json
+    elasticsearch-extensions (0.0.31)
+      ansi
+      elasticsearch
     elasticsearch-transport (7.3.0)
       faraday
       multi_json
@@ -296,6 +299,7 @@ DEPENDENCIES
   bonsai-elasticsearch-rails
   bootsnap (>= 1.4.2)
   byebug
+  elasticsearch-extensions
   elasticsearch-model!
   elasticsearch-rails!
   factory_bot_rails

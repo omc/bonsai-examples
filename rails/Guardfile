@@ -43,10 +43,10 @@ guard :rspec, cmd: 'RAILS_ENV=development bundle exec rspec' do
   # end
 end
 
-guard :rubocop, all_on_start: false, cli: ['--require=rubocop-rspec'] do
-  watch(/.+\.rb$/)
-  watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
-end
+#guard :rubocop, all_on_start: false, cli: ['--require=rubocop-rspec'] do
+#  watch(/.+\.rb$/)
+#  watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
+#end
 
 # Note: options are being passed to YARD via .yardopts file
 # guard 'yard', server: false, cli: [] do
