@@ -4,12 +4,6 @@ This is a demo application for showing how to use the [elasticsearch-rails](http
 ## Getting Started
 These instructions will get you a copy of the app up and running on your local machine for development and testing purposes
 
-### Prerequisites
-If you don't have Yarn installed already, run
-```
-yarn install --check-files
-```
-
 ### Installing
 Run the following commands
 ```
@@ -18,6 +12,11 @@ cd bonsai-examples
 cd rails
 bundle install
 bundle update
+```
+
+If you don't have Yarn installed already, you may have to run
+```
+yarn install --check-files
 ```
 
 ### Set up a Postgres Database
@@ -32,9 +31,7 @@ Run
 ```
 bundle exec rails s
 ```
-Navigate to http://localhost:3000/ once the Rails server is up and running
-
-[insert screenshot]
+Navigate to http://localhost:3000/users once the Rails server is up and running
 
 ### Running tests
 We like using Guard to automatically run the specs against files as they are changed. Open another terminal tab/window and run
@@ -42,19 +39,5 @@ We like using Guard to automatically run the specs against files as they are cha
 bundle exec guard start
 ```
 
-## Built With
-- Ruby 2.5.3
-- Rails 6.0.0
-
-## Included Gems
-- [rspec-rails](https://rubygems.org/gems/rspec-rails/versions/3.8.2)
-- [launchy](https://rubygems.org/gems/launchy)
-- [pry](https://rubygems.org/gems/pry)
-- [factory_bot_rails](https://rubygems.org/gems/factory_bot_rails)
-- ... Do we want this section?
-
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/omc/bonsai-examples/blob/master/LICENSE) file for details
-
-## Acknowledgments
-- The entire [OMC team](https://omc.io/#team)!
