@@ -30,10 +30,14 @@ if ENV['RAILS_ENV'] == 'development'
     add_filter '/lib/mailers/previews/' # for mailer previews
   end
 end
-
-@es_version = ENV.fetch('ES_VERSION', 'elasticsearch-7.4.0/bin/elasticsearch')
-ENV['BONSAI_URL']='localhost:9250'
-
+if(File.exist?("elasticsearch-#{File.read(".elasticsearch-version")}"))
+  @es_version = ENV.fetch('ES_VERSION', "elasticsearch-#{File.open('.elasticsearch-version', &:readline)}/bin/elasticsearch")
+  ENV['BONSAI_URL']='localhost:9250'
+else
+  puts File.open('.elasticsearch-version', &:readline)
+  exec("wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{File.open('.elasticsearch-version', &:readline).chomp}-darwin-x86_64.tar.gz")
+  exec("tar -xzf elasticsearch-#{File.open('.elasticsearch-version', &:readline).chomp}-darwin-x86_64.tar.gz")
+end
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 

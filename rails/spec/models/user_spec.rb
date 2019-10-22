@@ -30,5 +30,13 @@ RSpec.describe User, elasticsearch: true, type: :model do
       user.destroy!
       expect(User.search("id:#{user.id}").records.length).to eq(0)
     end
+
+    it 'should return correct results when queried' do
+      user_1 = create(:user)
+      user_2 = create(:user)
+      user_3 = create(:user)
+
+      expect(User.search("first_name:#{user_1.first_name}").records.length).to eq(1)
+    end
   end
 end
