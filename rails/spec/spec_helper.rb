@@ -30,14 +30,18 @@ if ENV['RAILS_ENV'] == 'development'
     add_filter '/lib/mailers/previews/' # for mailer previews
   end
 end
-if(File.exist?("elasticsearch-#{File.read(".elasticsearch-version")}"))
-  @es_version = ENV.fetch('ES_VERSION', "elasticsearch-#{File.open('.elasticsearch-version', &:readline)}/bin/elasticsearch")
-  ENV['BONSAI_URL']='localhost:9250'
-else
-  puts File.open('.elasticsearch-version', &:readline)
-  exec("wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{File.open('.elasticsearch-version', &:readline).chomp}-darwin-x86_64.tar.gz")
-  exec("tar -xzf elasticsearch-#{File.open('.elasticsearch-version', &:readline).chomp}-darwin-x86_64.tar.gz")
+
+@filename = "elasticsearch-#{File.open(".elasticsearch-version", &:readline).chomp}"
+
+unless File.exist?(@filename)
+  file_name = "elasticsearch-#{File.open('.elasticsearch-version', &:readline).chomp}-darwin-x86_64.tar.gz"
+  download_link = "https://artifacts.elastic.co/downloads/elasticsearch/#{file_name}"
+  system("wget #{download_link} && tar -xzf #{file_name} && rm #{file_name}")
 end
+
+@es_version = ENV.fetch('ES_VERSION', "elasticsearch-#{File.open('.elasticsearch-version', &:readline).chomp}/bin/elasticsearch")
+ENV['BONSAI_URL']='localhost:9250'
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
