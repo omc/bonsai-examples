@@ -1,0 +1,42 @@
+{{ define "content" }}
+<h1 class="page-header">Overview</h1>
+<div class="stats">
+<div class="row">
+<div class="col-md-4">
+    <center>
+        <i class='fa  fa-cloud fa-5x' style="margin: 0 auto;color:#6495ED"></i>
+    </center>
+    <h3>Cluster state:</h3>
+        <ul>
+            <li><strong>Cluster name: </strong>        {{ .Health.ClusterName }}</li>
+            <li><strong>Cluster status:</strong>       {{ .Health.Status }}</li>
+            <li><strong>Number of nodes:</strong>      {{ .Health.NumberOfNodes }}</li>
+            <li><strong>Number of data nodes:</strong> {{ .Health.NumberOfDataNodes }}</li>
+        </ul>
+</div>
+<div class="col-md-4">
+    <center>
+        <i class='fa fa-object-group fa-5x' style="margin: 0 auto;color:#6495ED"></i>
+    </center>
+    <h3>Shards:</h3>
+        <ul>
+            <li><strong>Active: </strong>      {{ .Health.ActiveShards }}</li>
+            <li><strong>Relocating:</strong>   {{ .Health.RelocatingShards }}</li>
+            <li><strong>Initializing:</strong> {{ .Health.InitializingShards }}</li>
+            <li><strong>Unassigned:</strong>   {{ .Health.UnassignedShards }}</li>
+        </ul>
+</div>
+<div class="col-md-4">
+    <center>
+        <i class='fa  fa-calculator fa-5x' style="margin: 0 auto;color:#6495ED"></i>
+    </center>
+    <h3>Stats:</h3>
+        <ul>
+            <li><strong>Total documents (primary):</strong> {{ .Stats.All.Primaries.Docs.Count }}</li>
+            <li><strong>Primary Disk Store:</strong> {{ .Stats.All.Primaries.Store.Size }}</li>
+            <li><strong>Total Disk Usage:</strong> {{ .Stats.All.Total.Store.Size }}</li>
+        </ul>
+</div>
+</div>
+</div>
+{{ end }}

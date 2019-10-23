@@ -1,0 +1,15 @@
+{{define "sidebar"}}
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="/">Overview <span class="sr-only">(current)</span></li>
+        <!--
+        <li><a href="#">Reports</a></li>
+        <li><a href="#">Analytics</a></li>
+        <li><a href="#">Export</a></li>
+        -->
+      </ul>
+      <ul class="nav nav-sidebar">
+        {{range .Indices}}
+        <li><a href="/index/{{.}}">{{.}}</a></li>
+        {{end}}
+      </ul>
+{{end}}
