@@ -15,6 +15,10 @@ RSpec.describe User, elasticsearch: true, type: :model do
   end
 
   describe 'elasticsearch' do
+    it 'has the correct ES version' do
+      dotfile = File.open(".elasticsearch-version", &:readline).chomp
+
+    end
     it 'should initially have no User records' do
       expect(User.search('*:*').records.length).to eq(0)
     end
@@ -36,7 +40,9 @@ RSpec.describe User, elasticsearch: true, type: :model do
       user_2 = create(:user)
       user_3 = create(:user)
 
+      User.__elasticsearch__.refresh_index!
       expect(User.search("first_name:#{user_1.first_name}").records.length).to eq(1)
+      #content of record is user_1
     end
   end
 end

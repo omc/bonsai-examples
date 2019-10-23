@@ -31,21 +31,10 @@ if ENV['RAILS_ENV'] == 'development'
   end
 end
 
-@filename = "elasticsearch-#{File.open(".elasticsearch-version", &:readline).chomp}"
-
-unless File.exist?(@filename)
-  file_name = "elasticsearch-#{File.open('.elasticsearch-version', &:readline).chomp}-darwin-x86_64.tar.gz"
-  download_link = "https://artifacts.elastic.co/downloads/elasticsearch/#{file_name}"
-  system("wget #{download_link} && tar -xzf #{file_name} && rm #{file_name}")
-end
-
-@es_version = ENV.fetch('ES_VERSION', "elasticsearch-#{File.open('.elasticsearch-version', &:readline).chomp}/bin/elasticsearch")
-ENV['BONSAI_URL']='localhost:9250'
-
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
-  cluster = Elasticsearch::Extensions::Test::Cluster::Cluster.new(port: 9250, number_of_nodes: 1, timeout: 120, command: @es_version)
+  cluster = Elasticsearch::Extensions::Test::Cluster::Cluster.new(port: 9250, number_of_nodes: 1, timeout: 120, command: 'elasticsearch-7.4.0/bin/elasticsearch')
 
   # Start an in-memory cluster for Elasticsearch as needed
   config.before :all, elasticsearch: true do
