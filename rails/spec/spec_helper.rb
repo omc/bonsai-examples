@@ -30,6 +30,19 @@ if ENV['RAILS_ENV'] == 'development'
 end
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.before(:suite) do
+    # reindex models
+    User.reindex
+
+    # and disable callbacks
+    Searchkick.disable_callbacks
+  end
+
+  config.around(:each, search: true) do |example|
+    Searchkick.callbacks(true) do
+      example.run
+    end
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
