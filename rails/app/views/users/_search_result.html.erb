@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="col">
+    <%= link_to "#{result.first_name} #{result.last_name} <#{result.email}>", user_path(result) %><br />
+    <strong><%= result.company %></strong><br />
+    <em><%= result.company_description %></em><br />
+    <br />
+  </div>
+</div>

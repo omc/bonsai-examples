@@ -4,4 +4,6 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :email, :address, :city, :company,
             :zip_code, presence: true
   validates :email, uniqueness: true
+
+  searchkick settings: { number_of_replicas: 0 } 
 end
