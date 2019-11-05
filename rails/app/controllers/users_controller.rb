@@ -9,6 +9,12 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+
+  def search
+    search_query = User.search { fulltext "#{params[:q]}"}
+    @results = search_query.hits
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show; end

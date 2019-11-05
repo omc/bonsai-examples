@@ -8,8 +8,8 @@
       <%= link_to 'New User', new_user_path, class:"nav-link active text-secondary" %>
     </li>
   </ul>
-  <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-  </form>
+  <%= form_with(url: search_users_path, method: "post", class: 'form-inline my-2 my-lg-0', local: true) do %>
+     <%= text_field_tag(:q, nil, class: "form-control mr-sm-2", placeholder: "Search") %>
+     <%= button_tag("Search", class: "btn btn-outline-info my-2 my-sm-0", name: nil) %>
+  <% end %>
 </nav>
