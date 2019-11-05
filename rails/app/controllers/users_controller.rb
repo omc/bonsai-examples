@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   def search
     search_query = User.search { fulltext "#{params[:q]}"}
-    @results = search_query.hits
+    @results = search_query.results
   end
 
   # GET /users/1
