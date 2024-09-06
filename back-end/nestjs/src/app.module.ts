@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MoviesModule } from './movies/movies.module';
 import databaseConfig from './database/config/database.config';
+import searchConfig from './database/config/search.config';
 import appConfig from './config/app.config';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -19,7 +20,7 @@ const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig, appConfig],
+      load: [databaseConfig, searchConfig, appConfig],
       envFilePath: ['.env'],
     }),
     infrastructureDatabaseModule,
