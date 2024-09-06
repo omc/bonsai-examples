@@ -6,9 +6,10 @@ import { MovieEntity } from '../entities/movie.entity';
 import { NullableType } from '../../../../../utils/types/nullable.type';
 import { SortMovieDto } from '../../../../dto/query-movie.dto';
 import { Movie } from '../../../../domain/movie';
-import { MovieRepository } from '../../movieRepository';
+import { MovieRepository } from '../../movie.repository';
 import { MovieMapper } from '../mappers/movie.mapper';
 import { IPaginationOptions } from '../../../../../utils/types/pagination-options';
+import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
 
 @Injectable()
 export class MoviesRelationalRepository implements MovieRepository {
@@ -48,6 +49,10 @@ export class MoviesRelationalRepository implements MovieRepository {
     });
 
     return entities.map((movie) => MovieMapper.toDomain(movie));
+  }
+
+  async find(options?: FindManyOptions<MovieEntity>): Promise<Movie[]> {
+    return await this.moviesRepository.find(options);
   }
 
   async findById(id: Movie['id']): Promise<NullableType<Movie>> {

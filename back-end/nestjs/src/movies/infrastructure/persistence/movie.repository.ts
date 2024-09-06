@@ -4,6 +4,8 @@ import { IPaginationOptions } from '../../../utils/types/pagination-options';
 import { Movie } from '../../domain/movie';
 
 import { SortMovieDto } from '../../dto/query-movie.dto';
+import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
+import { MovieEntity } from './relational/entities/movie.entity';
 
 export abstract class MovieRepository {
   abstract create(data: { title: string }): Promise<Movie>;
@@ -16,7 +18,10 @@ export abstract class MovieRepository {
     paginationOptions: IPaginationOptions;
   }): Promise<Movie[]>;
 
+  abstract find(options?: FindManyOptions<MovieEntity>): Promise<Movie[]>;
+
   abstract findById(id: Movie['id']): Promise<NullableType<Movie>>;
+
   abstract findByTitle(title: Movie['title']): Promise<NullableType<Movie>>;
 
   abstract update(
