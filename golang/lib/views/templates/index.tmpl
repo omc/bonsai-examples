@@ -1,0 +1,99 @@
+{{ define "content"}}
+<h1 class="page-header">Overview of {{ .Name }}</h1>
+
+    {{if gt .Hits 0}}
+
+    <div>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Stats</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Fields</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Documents</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <style>
+
+            .chart div {
+              font: 10px sans-serif;
+              background-color: steelblue;
+              text-align: right;
+              padding: 3px;
+              margin: 1px;
+              color: white;
+              min-width:100px;
+            }
+
+            </style>
+            <div class="chart"></div>
+            <script language="javascript" type="text/javascript">
+                var data = {{ d3data .TypeCounts }};
+                var keys = Object.keys(data)
+                var vals = Object.keys(data).map(function(v) { return (((data[v]) * 100.0 / {{ .Hits }}).toFixed(0)); })
+                var x = d3.scale.linear()
+                    .domain([0, d3.max(vals)])
+                    .range([0, 100]);
+
+                d3.select(".chart")
+                  .selectAll("div")
+                    .data(vals)
+                  .enter().append("div")
+                    .style("width", function(d) { return x(d) + "%"; })
+                    .text(function(d) { return keys.shift() + ": " + vals.shift() + "%"; });
+            </script>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+            <div class="table-responsive">
+                <table  class="table table-striped">
+                    <thead>
+                        <th>Type</th>
+                        <th>Fields</th>
+                    </thead>
+                    <tbody>
+                    {{range $type := .MappingTypes}}
+                        <tr>
+                            <td>{{ $type }}</td>
+                            <td>
+                                <ul>
+                                {{ range $field := mappingFields $.Mappings $.Name $type}}
+                                    <li>{{ $field }}</li>
+                                {{ end }}
+                                </ul>
+                            </td>
+                        </tr>
+                    {{ end }}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="messages">
+            <div class="table-responsive">
+                <table  class="table table-striped">
+                    <thead>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Source</th>
+                    </thead>
+                    <tbody>
+                    {{range $doc := .Docs}}
+                        <tr>
+                            <td>{{ $doc.Id }}</td>
+                            <td>{{ $doc.Type }}</td>
+                            <td>
+                                {{ jsonDecode $doc }}
+                            </td>
+                        </tr>
+                    {{ end }}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+
+    </div>
+    {{end}}
+
+{{ end }}

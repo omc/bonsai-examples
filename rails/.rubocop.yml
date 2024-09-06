@@ -1,0 +1,1491 @@
+require: rubocop-rspec
+
+AllCops:
+  AllowSymlinksInCacheRootDirectory: false
+  CacheRootDirectory: ~
+  DefaultFormatter: progress
+  DisabledByDefault: false
+  DisplayCopNames: true
+  DisplayStyleGuide: false
+  EnabledByDefault: false
+  Exclude:
+    - vendor/**/*
+    - spec/fixtures/**/*
+    - tmp/**/*
+    - node_modules/**/*
+    - .git/**/*
+    - bin/**/*
+    - db/**/*
+    - config/**/*
+    - Guardfile
+  ExtraDetails: false
+  MaxFilesInCache: 20000
+  RSpec:
+    Patterns:
+      - _spec.rb
+      - "(?:^|/)spec/"
+  RSpec/FactoryBot:
+    Patterns:
+      - spec/factories/**/*.rb
+      - features/support/factories/**/*.rb
+  RubyInterpreters:
+    - ruby
+    - macruby
+    - rake
+    - jruby
+    - rbx
+  StyleGuideBaseURL: "https://github.com/rubocop-hq/ruby-style-guide"
+  StyleGuideCopsOnly: false
+  TargetRubyVersion: 2.5
+  UseCache: true
+Bundler/OrderedGems:
+  TreatCommentsAsGroupSeparators: true
+Capybara/CurrentPathExpectation:
+  Description: "Checks that no expectations are set on Capybara's `current_path`."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/CurrentPathExpectation"
+Capybara/FeatureMethods:
+  Description: "Checks for consistent method usage in feature specs."
+  Enabled: true
+  EnabledMethods: []
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Capybara/FeatureMethods"
+FactoryBot/AttributeDefinedStatically:
+  Description: Always declare attribute values as blocks.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/AttributeDefinedStatically
+FactoryBot/CreateList:
+  Description: "Checks for create_list usage."
+  Enabled: true
+  EnforcedStyle: create_list
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FactoryBot/CreateList"
+  SupportedStyles:
+    - create_list
+    - n_times
+Gemspec/OrderedDependencies:
+  TreatCommentsAsGroupSeparators: true
+Layout/AccessModifierIndentation:
+  EnforcedStyle: indent
+  IndentationWidth: ~
+  SupportedStyles:
+    - outdent
+    - indent
+Layout/AlignHash:
+  EnforcedColonStyle: key
+  EnforcedHashRocketStyle: key
+  EnforcedLastArgumentHashStyle: always_inspect
+  SupportedColonStyles:
+    - key
+    - separator
+    - table
+  SupportedHashRocketStyles:
+    - key
+    - separator
+    - table
+  SupportedLastArgumentHashStyles:
+    - always_inspect
+    - always_ignore
+    - ignore_implicit
+    - ignore_explicit
+Layout/AlignParameters:
+  EnforcedStyle: with_first_parameter
+  IndentationWidth: ~
+  SupportedStyles:
+    - with_first_parameter
+    - with_fixed_indentation
+Layout/BlockAlignment:
+  EnforcedStyleAlignWith: either
+  SupportedStylesAlignWith:
+    - either
+    - start_of_block
+    - start_of_line
+Layout/CaseIndentation:
+  Enabled: true
+  EnforcedStyle: case
+  IndentOneStep: false
+  IndentationWidth: ~
+  SupportedStyles:
+    - case
+    - end
+Layout/ClassStructure:
+  Categories:
+    module_inclusion:
+      - include
+      - prepend
+      - extend
+  Enabled: true
+  ExpectedOrder:
+    - module_inclusion
+    - constants
+    - public_class_methods
+    - initializer
+    - instance_methods
+    - protected_methods
+    - private_methods
+Layout/CommentIndentation:
+  Enabled: true
+Layout/DefEndAlignment:
+  AutoCorrect: false
+  EnforcedStyleAlignWith: start_of_line
+  Severity: warning
+  SupportedStylesAlignWith:
+    - start_of_line
+    - def
+Layout/DotPosition:
+  EnforcedStyle: leading
+  SupportedStyles:
+    - leading
+    - trailing
+Layout/ElseAlignment:
+  Enabled: true
+Layout/EmptyComment:
+  AllowBorderComment: true
+  AllowMarginComment: true
+Layout/EmptyLines:
+  Enabled: true
+Layout/EmptyLineAfterGuardClause:
+  Enabled: true
+Layout/EmptyLineAfterMagicComment:
+  Enabled: true
+Layout/EmptyLineBetweenDefs:
+  AllowAdjacentOneLineDefs: false
+  NumberOfEmptyLines: 1
+Layout/EmptyLinesAroundBlockBody:
+  EnforcedStyle: no_empty_lines
+  SupportedStyles:
+    - empty_lines
+    - no_empty_lines
+Layout/EmptyLinesAroundClassBody:
+  Enabled: true
+  EnforcedStyle: no_empty_lines
+  SupportedStyles:
+    - empty_lines
+    - empty_lines_except_namespace
+    - empty_lines_special
+    - no_empty_lines
+    - beginning_only
+    - ending_only
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: true
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: true
+Layout/EndAlignment:
+  AutoCorrect: true
+  Enabled: true
+  EnforcedStyleAlignWith: keyword
+  Severity: warning
+  SupportedStylesAlignWith:
+    - keyword
+    - variable
+    - start_of_line
+Layout/EndOfLine:
+  EnforcedStyle: native
+  SupportedStyles:
+    - native
+    - lf
+    - crlf
+Layout/ExtraSpacing:
+  AllowForAlignment: true
+  ForceEqualSignAlignment: false
+Layout/FirstParameterIndentation:
+  Enabled: true
+  EnforcedStyle: special_for_inner_method_call_in_parentheses
+  IndentationWidth: ~
+  SupportedStyles:
+    - consistent
+    - consistent_relative_to_receiver
+    - special_for_inner_method_call
+    - special_for_inner_method_call_in_parentheses
+Layout/IndentArray:
+  EnforcedStyle: special_inside_parentheses
+  IndentationWidth: ~
+  SupportedStyles:
+    - special_inside_parentheses
+    - consistent
+    - align_brackets
+Layout/IndentAssignment:
+  IndentationWidth: ~
+Layout/IndentHash:
+  EnforcedStyle: special_inside_parentheses
+  IndentationWidth: ~
+  SupportedStyles:
+    - special_inside_parentheses
+    - consistent
+    - align_braces
+Layout/IndentHeredoc:
+  EnforcedStyle: auto_detection
+  SupportedStyles:
+    - auto_detection
+    - squiggly
+    - active_support
+    - powerpack
+    - unindent
+Layout/IndentationConsistency:
+  Enabled: true
+  EnforcedStyle: rails
+Layout/IndentationWidth:
+  Enabled: true
+  IgnoredPatterns: []
+  Width: 2
+Layout/LeadingCommentSpace:
+  Enabled: true
+Layout/MultilineArrayBraceLayout:
+  EnforcedStyle: symmetrical
+  SupportedStyles:
+    - symmetrical
+    - new_line
+    - same_line
+Layout/MultilineAssignmentLayout:
+  EnforcedStyle: new_line
+  SupportedStyles:
+    - same_line
+    - new_line
+  SupportedTypes:
+    - block
+    - case
+    - class
+    - if
+    - kwbegin
+    - module
+Layout/MultilineHashBraceLayout:
+  EnforcedStyle: symmetrical
+  SupportedStyles:
+    - symmetrical
+    - new_line
+    - same_line
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: symmetrical
+  SupportedStyles:
+    - symmetrical
+    - new_line
+    - same_line
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: aligned
+  IndentationWidth: ~
+  SupportedStyles:
+    - aligned
+    - indented
+    - indented_relative_to_receiver
+Layout/MultilineMethodDefinitionBraceLayout:
+  EnforcedStyle: symmetrical
+  SupportedStyles:
+    - symmetrical
+    - new_line
+    - same_line
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: aligned
+  IndentationWidth: ~
+  SupportedStyles:
+    - aligned
+    - indented
+Layout/SpaceAfterColon:
+  Enabled: true
+Layout/SpaceAfterComma:
+  Enabled: true
+Layout/SpaceAroundBlockParameters:
+  EnforcedStyleInsidePipes: no_space
+  SupportedStylesInsidePipes:
+    - space
+    - no_space
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: true
+  EnforcedStyle: space
+  SupportedStyles:
+    - space
+    - no_space
+Layout/SpaceAroundKeyword:
+  Enabled: true
+Layout/SpaceAroundOperators:
+  AllowForAlignment: true
+  Enabled: true
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: space
+  SupportedStyles:
+    - space
+    - no_space
+  SupportedStylesForEmptyBraces:
+    - space
+    - no_space
+Layout/SpaceBeforeComma:
+  Enabled: true
+Layout/SpaceBeforeFirstArg:
+  AllowForAlignment: true
+  Enabled: true
+Layout/SpaceInLambdaLiteral:
+  EnforcedStyle: require_no_space
+  SupportedStyles:
+    - require_no_space
+    - require_space
+Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBrackets: no_space
+  SupportedStyles:
+    - space
+    - no_space
+    - compact
+  SupportedStylesForEmptyBrackets:
+    - space
+    - no_space
+Layout/SpaceInsideBlockBraces:
+  Enabled: true
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: no_space
+  SpaceBeforeBlockParameters: true
+  SupportedStyles:
+    - space
+    - no_space
+  SupportedStylesForEmptyBraces:
+    - space
+    - no_space
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: no_space
+  SupportedStyles:
+    - space
+    - no_space
+    - compact
+  SupportedStylesForEmptyBraces:
+    - space
+    - no_space
+Layout/SpaceInsideParens:
+  Enabled: true
+  EnforcedStyle: no_space
+  SupportedStyles:
+    - space
+    - no_space
+Layout/SpaceInsideReferenceBrackets:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBrackets: no_space
+  SupportedStyles:
+    - space
+    - no_space
+  SupportedStylesForEmptyBrackets:
+    - space
+    - no_space
+Layout/SpaceInsideStringInterpolation:
+  EnforcedStyle: no_space
+  SupportedStyles:
+    - space
+    - no_space
+Layout/Tab:
+  Enabled: true
+  IndentationWidth: ~
+Layout/TrailingBlankLines:
+  Enabled: true
+  EnforcedStyle: final_newline
+  SupportedStyles:
+    - final_newline
+    - final_blank_line
+Layout/TrailingWhitespace:
+  AllowInHeredoc: true
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - spec/**/*.rb
+Lint/AssignmentInCondition:
+  AllowSafeAssignment: true
+Lint/BooleanSymbol:
+  Enabled: false
+Lint/InheritException:
+  EnforcedStyle: runtime_error
+  SupportedStyles:
+    - runtime_error
+    - standard_error
+Lint/InterpolationCheck:
+  Exclude:
+    - spec/**/*.rb
+Lint/RequireParentheses:
+  Enabled: true
+Lint/SafeNavigationChain:
+  Whitelist:
+    - present?
+    - blank?
+    - presence
+    - try
+    - try!
+Lint/SafeNavigationConsistency:
+  Whitelist:
+    - present?
+    - blank?
+    - presence
+    - try
+    - try!
+Lint/ShadowedArgument:
+  IgnoreImplicitReferences: false
+Lint/StringConversionInInterpolation:
+  Enabled: true
+Lint/UnusedBlockArgument:
+  AllowUnusedKeywordArguments: false
+  IgnoreEmptyBlocks: true
+Lint/UnusedMethodArgument:
+  AllowUnusedKeywordArguments: false
+  IgnoreEmptyMethods: true
+Lint/UselessAccessModifier:
+  MethodCreatingMethods:
+    - def_matcher
+    - def_node_matcher
+Lint/Void:
+  CheckForMethodsWithNoSideEffects: false
+
+Metrics/AbcSize:
+  Max: 15
+
+Metrics/BlockLength:
+  CountComments: false
+  Exclude:
+    - Rakefile
+    - "**/*.rake"
+    - spec/**/*.rb
+  ExcludedMethods:
+    - refine
+  Max: 25
+Metrics/BlockNesting:
+  CountBlocks: false
+  Max: 3
+Metrics/ClassLength:
+  CountComments: false
+  Max: 100
+Metrics/CyclomaticComplexity:
+  Max: 6
+Metrics/LineLength:
+  AllowHeredoc: true
+  AllowURI: true
+  IgnoreCopDirectives: false
+  IgnoredPatterns: []
+  Max: 80
+  URISchemes:
+    - http
+    - https
+Metrics/MethodLength:
+  CountComments: false
+  Max: 15
+Metrics/ModuleLength:
+  CountComments: false
+  Exclude:
+    - spec/**/*.rb
+  Max: 100
+Metrics/ParameterLists:
+  CountKeywordArgs: true
+  Max: 5
+Metrics/PerceivedComplexity:
+  Max: 7
+Naming/FileName:
+  AllowedAcronyms:
+    - CLI
+    - DSL
+    - ACL
+    - API
+    - ASCII
+    - CPU
+    - CSS
+    - DNS
+    - EOF
+    - GUID
+    - HTML
+    - HTTP
+    - HTTPS
+    - ID
+    - IP
+    - JSON
+    - LHS
+    - QPS
+    - RAM
+    - RHS
+    - RPC
+    - SLA
+    - SMTP
+    - SQL
+    - SSH
+    - TCP
+    - TLS
+    - TTL
+    - UDP
+    - UI
+    - UID
+    - UUID
+    - URI
+    - URL
+    - UTF8
+    - VM
+    - XML
+    - XMPP
+    - XSRF
+    - XSS
+  Exclude: []
+  ExpectMatchingDefinition: false
+  IgnoreExecutableScripts: true
+  Regex: ~
+Naming/HeredocDelimiterCase:
+  EnforcedStyle: uppercase
+  SupportedStyles:
+    - lowercase
+    - uppercase
+Naming/HeredocDelimiterNaming:
+  Blacklist:
+    - !ruby/regexp /(^|\s)(EO[A-Z]{1}|END)(\s|$)/
+Naming/MethodName:
+  EnforcedStyle: snake_case
+  SupportedStyles:
+    - snake_case
+    - camelCase
+Naming/PredicateName:
+  Exclude:
+    - spec/**/*
+  MethodDefinitionMacros:
+    - define_method
+    - define_singleton_method
+    - def_node_matcher
+    - def_node_search
+  NamePrefix:
+    - is_
+    - has_
+    - have_
+  NamePrefixBlacklist:
+    - is_
+    - has_
+    - have_
+  NameWhitelist:
+    - is_holiday?
+    - is_a?
+Naming/UncommunicativeBlockParamName:
+  AllowNamesEndingInNumbers: true
+  AllowedNames: []
+  ForbiddenNames: []
+  MinNameLength: 1
+Naming/UncommunicativeMethodParamName:
+  AllowNamesEndingInNumbers: true
+  AllowedNames:
+    - io
+    - id
+    - to
+    - by
+    - "on"
+    - in
+    - at
+  ForbiddenNames: []
+  MinNameLength: 3
+Naming/VariableName:
+  EnforcedStyle: snake_case
+  SupportedStyles:
+    - snake_case
+    - camelCase
+Naming/VariableNumber:
+  EnforcedStyle: normalcase
+  SupportedStyles:
+    - snake_case
+    - normalcase
+    - non_integer
+Performance/Caller:
+  Exclude:
+    - spec/rubocop/cop/performance/caller_spec.rb
+Performance/DoubleStartEndWith:
+  IncludeActiveSupportAliases: false
+Performance/RedundantMerge:
+  MaxKeyValuePairs: 2
+RSpec/AlignLeftLetBrace:
+  Description: "Checks that left braces for adjacent single line lets are aligned."
+  Enabled: false
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignLeftLetBrace"
+RSpec/AlignRightLetBrace:
+  Description: "Checks that right braces for adjacent single line lets are aligned."
+  Enabled: false
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AlignRightLetBrace"
+RSpec/AnyInstance:
+  Description: "Check that instances are not being stubbed globally."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AnyInstance"
+RSpec/AroundBlock:
+  Description: "Checks that around blocks actually run the test."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/AroundBlock"
+RSpec/Be:
+  Description: "Check for expectations where `be` is used without argument."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Be"
+RSpec/BeEql:
+  Description: "Check for expectations where `be(...)` can replace `eql(...)`."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeEql"
+RSpec/BeforeAfterAll:
+  Description: "Check that before/after(:all) isn't being used."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/BeforeAfterAll"
+RSpec/ContextWording:
+  Description: "`context` block descriptions should start with 'when', or 'with'."
+  Enabled: true
+  Prefixes:
+    - when
+    - with
+    - without
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContextWording"
+RSpec/DescribeClass:
+  Description: "Check that the first argument to the top level describe is a constant."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeClass"
+RSpec/DescribeMethod:
+  Description: "Checks that the second argument to `describe` specifies a method."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeMethod"
+RSpec/DescribeSymbol:
+  Description: "Avoid describing symbols."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribeSymbol"
+RSpec/DescribedClass:
+  Description: "Checks that tests use `described_class`."
+  Enabled: true
+  EnforcedStyle: described_class
+  SkipBlocks: false
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/DescribedClass"
+  SupportedStyles:
+    - described_class
+    - explicit
+RSpec/EmptyExampleGroup:
+  CustomIncludeMethods: []
+  Description: "Checks if an example group does not include any tests."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyExampleGroup"
+RSpec/EmptyLineAfterExampleGroup:
+  Description: "Checks if there is an empty line after example group blocks."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterExampleGroup"
+RSpec/EmptyLineAfterFinalLet:
+  Description: "Checks if there is an empty line after the last let block."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterFinalLet"
+RSpec/EmptyLineAfterHook:
+  Description: "Checks if there is an empty line after hook blocks."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterHook"
+RSpec/EmptyLineAfterSubject:
+  Description: "Checks if there is an empty line after subject block."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/EmptyLineAfterSubject"
+RSpec/ExampleLength:
+  Description: "Checks for long examples."
+  Enabled: true
+  Max: 5
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleLength"
+RSpec/ExampleWithoutDescription:
+  Description: "Checks for examples without a description."
+  Enabled: true
+  EnforcedStyle: always_allow
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutDescription"
+  SupportedStyles:
+    - always_allow
+    - single_line_only
+    - disallow
+RSpec/ExampleWording:
+  CustomTransform:
+    BE: IS
+    HAVE: HAS
+    be: is
+    have: has
+  Description: "Checks for common mistakes in example descriptions."
+  Enabled: true
+  IgnoredWords: []
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWording"
+RSpec/ExpectActual:
+  Description: "Checks for `expect(...)` calls containing literal values."
+  Enabled: true
+  Exclude:
+    - spec/routing/**/*
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectActual"
+RSpec/ExpectChange:
+  Description: "Checks for consistent style of change matcher."
+  Enabled: true
+  EnforcedStyle: method_call
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectChange"
+  SupportedStyles:
+    - method_call
+    - block
+RSpec/ExpectInHook:
+  Description: "Do not use `expect` in hooks such as `before`."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook"
+RSpec/ExpectOutput:
+  Description: "Checks for opportunities to use `expect { ... }.to output`."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectOutput"
+RSpec/FilePath:
+  CustomTransform:
+    RSpec: rspec
+    RuboCop: rubocop
+  Description: "Checks that spec file paths are consistent with the test subject."
+  Enabled: true
+  IgnoreMethods: false
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/FilePath"
+RSpec/Focus:
+  Description: "Checks if examples are focused."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Focus"
+RSpec/HookArgument:
+  Description: "Checks the arguments passed to `before`, `around`, and `after`."
+  Enabled: true
+  EnforcedStyle: implicit
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/HookArgument"
+  SupportedStyles:
+    - implicit
+    - each
+    - example
+RSpec/ImplicitExpect:
+  Description: "Check that a consistent implicit expectation style is used."
+  Enabled: true
+  EnforcedStyle: is_expected
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ImplicitExpect"
+  SupportedStyles:
+    - is_expected
+    - should
+RSpec/InstanceSpy:
+  Description: "Checks for `instance_double` used with `have_received`."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceSpy"
+RSpec/InstanceVariable:
+  AssignmentOnly: false
+  Description: "Checks for instance variable usage in specs."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InstanceVariable"
+RSpec/InvalidPredicateMatcher:
+  Description: "Checks invalid usage for predicate matcher."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/InvalidPredicateMatcher"
+RSpec/ItBehavesLike:
+  Description: "Checks that only one `it_behaves_like` style is used."
+  Enabled: true
+  EnforcedStyle: it_behaves_like
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ItBehavesLike"
+  SupportedStyles:
+    - it_behaves_like
+    - it_should_behave_like
+RSpec/IteratedExpectation:
+  Description: "Check that `all` matcher is used instead of iterating over an array."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/IteratedExpectation"
+RSpec/LeadingSubject:
+  Description: "Enforce that subject is the first definition in the test."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LeadingSubject"
+RSpec/LetBeforeExamples:
+  Description: "Checks for `let` definitions that come after an example."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetBeforeExamples"
+RSpec/LetSetup:
+  Description: "Checks unreferenced `let!` calls being used for test setup."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/LetSetup"
+RSpec/MessageChain:
+  Description: "Check that chains of messages are not being stubbed."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageChain"
+RSpec/MessageExpectation:
+  Description: "Checks for consistent message expectation style."
+  Enabled: false
+  EnforcedStyle: allow
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageExpectation"
+  SupportedStyles:
+    - allow
+    - expect
+RSpec/MessageSpies:
+  Description: "Checks that message expectations are set using spies."
+  Enabled: true
+  EnforcedStyle: have_received
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MessageSpies"
+  SupportedStyles:
+    - have_received
+    - receive
+RSpec/MultipleDescribes:
+  Description: "Checks for multiple top level describes."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleDescribes"
+RSpec/MultipleExpectations:
+  AggregateFailuresByDefault: false
+  Description: "Checks if examples contain too many `expect` calls."
+  Enabled: true
+  Max: 1
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations"
+RSpec/MultipleSubjects:
+  Description: "Checks if an example group defines `subject` multiple times."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleSubjects"
+RSpec/NamedSubject:
+  Description: "Checks for explicitly referenced test subjects."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NamedSubject"
+RSpec/NestedGroups:
+  Description: "Checks for nested example groups."
+  Enabled: true
+  Max: 3
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NestedGroups"
+RSpec/NotToNot:
+  Description: "Checks for consistent method usage for negating expectations."
+  Enabled: true
+  EnforcedStyle: not_to
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot"
+  SupportedStyles:
+    - not_to
+    - to_not
+RSpec/OverwritingSetup:
+  Description: "Checks if there is a let/subject that overwrites an existing one."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/OverwritingSetup"
+RSpec/Pending:
+  Description: "Checks for any pending or skipped examples."
+  Enabled: false
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Pending"
+RSpec/PredicateMatcher:
+  Description: "Prefer using predicate matcher over using predicate method directly."
+  Enabled: true
+  EnforcedStyle: inflected
+  Strict: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/PredicateMatcher"
+  SupportedStyles:
+    - inflected
+    - explicit
+RSpec/ReceiveCounts:
+  Description: "Check for `once` and `twice` receive counts matchers usage."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReceiveCounts"
+RSpec/RepeatedDescription:
+  Description: "Check for repeated description strings in example groups."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedDescription"
+RSpec/RepeatedExample:
+  Description: "Check for repeated examples within example groups."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/RepeatedExample"
+RSpec/ReturnFromStub:
+  Description: "Checks for consistent style of stub's return setting."
+  Enabled: true
+  EnforcedStyle: and_return
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ReturnFromStub"
+  SupportedStyles:
+    - and_return
+    - block
+RSpec/ScatteredLet:
+  Description: "Checks for let scattered across the example group."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredLet"
+RSpec/ScatteredSetup:
+  Description: "Checks for setup scattered across multiple hooks in an example group."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ScatteredSetup"
+RSpec/SharedContext:
+  Description: "Checks for proper shared_context and shared_examples usage."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedContext"
+RSpec/SharedExamples:
+  Description: "Enforces use of string to titleize shared examples."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SharedExamples"
+RSpec/SingleArgumentMessageChain:
+  Description: "Checks that chains of messages contain more than one element."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SingleArgumentMessageChain"
+RSpec/SubjectStub:
+  Description: "Checks for stubbed test subjects."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SubjectStub"
+RSpec/VerifiedDoubles:
+  Description: "Prefer using verifying doubles over normal doubles."
+  Enabled: true
+  IgnoreSymbolicNames: false
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VerifiedDoubles"
+RSpec/VoidExpect:
+  Description: "This cop checks void `expect()`."
+  Enabled: true
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/VoidExpect"
+Rails/ActionFilter:
+  EnforcedStyle: action
+  Include:
+    - app/controllers/**/*.rb
+  SupportedStyles:
+    - action
+    - filter
+Rails/AssertNot:
+  Include:
+    - "**/test/**/*"
+Rails/Blank:
+  NilOrEmpty: true
+  NotPresent: true
+  UnlessPresent: true
+Rails/BulkChangeTable:
+  Database: ~
+  Include:
+    - db/migrate/*.rb
+  SupportedDatabases:
+    - mysql
+    - postgresql
+Rails/CreateTableWithTimestamps:
+  Include:
+    - db/migrate/*.rb
+Rails/Date:
+  EnforcedStyle: flexible
+  SupportedStyles:
+    - strict
+    - flexible
+Rails/Delegate:
+  EnforceForPrefixed: true
+Rails/DynamicFindBy:
+  Whitelist:
+    - find_by_sql
+Rails/EnumUniqueness:
+  Include:
+    - app/models/**/*.rb
+Rails/Exit:
+  Exclude:
+    - lib/**/*.rake
+  Include:
+    - app/**/*.rb
+    - config/**/*.rb
+    - lib/**/*.rb
+Rails/FilePath:
+  EnforcedStyle: arguments
+  SupportedStyles:
+    - slashes
+    - arguments
+Rails/FindBy:
+  Include:
+    - app/models/**/*.rb
+Rails/FindEach:
+  Include:
+    - app/models/**/*.rb
+Rails/HasAndBelongsToMany:
+  Include:
+    - app/models/**/*.rb
+Rails/HasManyOrHasOneDependent:
+  Include:
+    - app/models/**/*.rb
+Rails/HttpStatus:
+  Description: "Enforces use of symbolic or numeric value to describe HTTP status."
+  Enabled: true
+  EnforcedStyle: symbolic
+  StyleGuide: "http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/Rails/HttpStatus"
+  SupportedStyles:
+    - numeric
+    - symbolic
+Rails/InverseOf:
+  Include:
+    - app/models/**/*.rb
+Rails/LexicallyScopedActionFilter:
+  Include:
+    - app/controllers/**/*.rb
+Rails/NotNullColumn:
+  Include:
+    - db/migrate/*.rb
+Rails/Output:
+  Include:
+    - app/**/*.rb
+    - config/**/*.rb
+    - db/**/*.rb
+    - lib/**/*.rb
+Rails/Present:
+  NotBlank: true
+  NotNilAndNotEmpty: true
+  UnlessBlank: true
+Rails/ReadWriteAttribute:
+  Include:
+    - app/models/**/*.rb
+Rails/RefuteMethods:
+  Include:
+    - "**/test/**/*"
+Rails/RequestReferer:
+  EnforcedStyle: referer
+  SupportedStyles:
+    - referer
+    - referrer
+Rails/ReversibleMigration:
+  Include:
+    - db/migrate/*.rb
+Rails/SafeNavigation:
+  ConvertTry: false
+Rails/ScopeArgs:
+  Include:
+    - app/models/**/*.rb
+Rails/SkipsModelValidations:
+  Blacklist:
+    - decrement!
+    - decrement_counter
+    - increment!
+    - increment_counter
+    - toggle!
+    - touch
+    - update_all
+    - update_attribute
+    - update_column
+    - update_columns
+    - update_counters
+Rails/TimeZone:
+  EnforcedStyle: flexible
+  SupportedStyles:
+    - strict
+    - flexible
+Rails/UniqBeforePluck:
+  AutoCorrect: false
+  EnforcedStyle: conservative
+  SupportedStyles:
+    - conservative
+    - aggressive
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - production
+Rails/Validation:
+  Include:
+    - app/models/**/*.rb
+Style/AccessModifierDeclarations:
+  EnforcedStyle: group
+  SupportedStyles:
+    - inline
+    - group
+Style/Alias:
+  EnforcedStyle: prefer_alias
+  SupportedStyles:
+    - prefer_alias
+    - prefer_alias_method
+Style/AndOr:
+  Enabled: true
+  EnforcedStyle: always
+  SupportedStyles:
+    - always
+    - conditionals
+Style/AsciiComments:
+  AllowedChars: []
+Style/BarePercentLiterals:
+  EnforcedStyle: bare_percent
+  SupportedStyles:
+    - percent_q
+    - bare_percent
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+  FunctionalMethods:
+    - before
+    - let
+    - let!
+    - subject
+    - watch
+    - expect
+  IgnoredMethods:
+    - lambda
+    - proc
+    - it
+  ProceduralMethods:
+    - benchmark
+    - bm
+    - bmbm
+    - create
+    - each_with_object
+    - measure
+    - new
+    - realtime
+    - tap
+    - with_object
+  SupportedStyles:
+    - line_count_based
+    - semantic
+    - braces_for_chaining
+Style/BracesAroundHashParameters:
+  Enabled: true
+  EnforcedStyle: no_braces
+  SupportedStyles:
+    - braces
+    - no_braces
+    - context_dependent
+Style/ClassAndModuleChildren:
+  EnforcedStyle: nested
+  SupportedStyles:
+    - nested
+    - compact
+Style/ClassCheck:
+  EnforcedStyle: is_a?
+  SupportedStyles:
+    - is_a?
+    - kind_of?
+Style/CollectionMethods:
+  PreferredMethods:
+    collect: map
+    collect!: map!
+    detect: find
+    find_all: select
+    inject: reduce
+Style/ColonMethodCall:
+  Enabled: true
+Style/CommandLiteral:
+  AllowInnerBackticks: false
+  EnforcedStyle: backticks
+  SupportedStyles:
+    - backticks
+    - percent_x
+    - mixed
+Style/CommentAnnotation:
+  Keywords:
+    - TODO
+    - FIXME
+    - OPTIMIZE
+    - HACK
+    - REVIEW
+Style/ConditionalAssignment:
+  EnforcedStyle: assign_to_condition
+  IncludeTernaryExpressions: true
+  SingleLineConditionsOnly: true
+  SupportedStyles:
+    - assign_to_condition
+    - assign_inside_condition
+Style/Copyright:
+  AutocorrectNotice: ""
+  Notice: "^Copyright (\\(c\\) )?2[0-9]{3} .+"
+Style/DefWithParentheses:
+  Enabled: true
+Style/Documentation:
+  Enabled: false
+Style/DocumentationMethod:
+  RequireForNonPublicMethods: false
+Style/EmptyElse:
+  EnforcedStyle: both
+  SupportedStyles:
+    - empty
+    - nil
+    - both
+Style/EmptyMethod:
+  EnforcedStyle: compact
+  SupportedStyles:
+    - compact
+    - expanded
+Style/For:
+  EnforcedStyle: each
+  SupportedStyles:
+    - each
+    - for
+Style/FormatString:
+  EnforcedStyle: format
+  SupportedStyles:
+    - format
+    - sprintf
+    - percent
+Style/FormatStringToken:
+  EnforcedStyle: annotated
+  Exclude:
+    - spec/**/*
+  SupportedStyles:
+    - annotated
+    - template
+    - unannotated
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: when_needed
+  SupportedStyles:
+    - when_needed
+    - always
+    - never
+Style/GlobalVars:
+  AllowedVariables: []
+Style/GuardClause:
+  MinBodyLength: 1
+Style/HashSyntax:
+  Enabled: true
+  EnforcedStyle: ruby19
+  PreferHashRocketsForNonAlnumEndingSymbols: false
+  SupportedStyles:
+    - ruby19
+    - hash_rockets
+    - no_mixed_keys
+    - ruby19_no_mixed_keys
+  UseHashRocketsWithSymbolValues: false
+
+Style/IfUnlessModifier:
+  Enabled: true
+Style/InverseMethods:
+  InverseBlocks:
+    ? !ruby/symbol select
+    : !ruby/symbol reject
+    ? !ruby/symbol select!
+    : !ruby/symbol reject!
+  InverseMethods:
+    ? !ruby/symbol <
+    : !ruby/symbol ">="
+    ? !ruby/symbol ==
+    : !ruby/symbol "!="
+    ? !ruby/symbol =~
+    : !ruby/symbol "!~"
+    ? !ruby/symbol ">"
+    : !ruby/symbol <=
+    ? !ruby/symbol any?
+    : !ruby/symbol none?
+    ? !ruby/symbol even?
+    : !ruby/symbol odd?
+Style/Lambda:
+  EnforcedStyle: line_count_dependent
+  SupportedStyles:
+    - line_count_dependent
+    - lambda
+    - literal
+Style/LambdaCall:
+  EnforcedStyle: call
+  SupportedStyles:
+    - call
+    - braces
+Style/MethodCallWithArgsParentheses:
+  IgnoreMacros: true
+  IgnoredMethods: []
+Style/MethodCallWithoutArgsParentheses:
+  IgnoredMethods: []
+Style/MethodDefParentheses:
+  Enabled: true
+  EnforcedStyle: require_parentheses
+  SupportedStyles:
+    - require_parentheses
+    - require_no_parentheses
+    - require_no_parentheses_except_multiline
+Style/MissingElse:
+  EnforcedStyle: both
+  SupportedStyles:
+    - if
+    - case
+    - both
+Style/MixinGrouping:
+  EnforcedStyle: separated
+  SupportedStyles:
+    - separated
+    - grouped
+Style/ModuleFunction:
+  EnforcedStyle: module_function
+  SupportedStyles:
+    - module_function
+    - extend_self
+Style/MultilineMemoization:
+  EnforcedStyle: keyword
+  SupportedStyles:
+    - keyword
+    - braces
+Style/NegatedIf:
+  EnforcedStyle: both
+  SupportedStyles:
+    - both
+    - prefix
+    - postfix
+Style/NestedParenthesizedCalls:
+  Whitelist:
+    - be
+    - be_a
+    - be_an
+    - be_between
+    - be_falsey
+    - be_kind_of
+    - be_instance_of
+    - be_truthy
+    - be_within
+    - eq
+    - eql
+    - end_with
+    - include
+    - match
+    - raise_error
+    - respond_to
+    - start_with
+Style/Next:
+  EnforcedStyle: skip_modifier_ifs
+  MinBodyLength: 3
+  SupportedStyles:
+    - skip_modifier_ifs
+    - always
+Style/NonNilCheck:
+  IncludeSemanticChanges: false
+Style/NumericLiteralPrefix:
+  EnforcedOctalStyle: zero_with_o
+  SupportedOctalStyles:
+    - zero_with_o
+    - zero_only
+Style/NumericLiterals:
+  MinDigits: 5
+  Strict: false
+Style/NumericPredicate:
+  EnforcedStyle: predicate
+  Exclude:
+    - spec/**/*
+  SupportedStyles:
+    - predicate
+    - comparison
+Style/OptionHash:
+  SuspiciousParamNames:
+    - options
+    - opts
+    - args
+    - params
+    - parameters
+Style/ParenthesesAroundCondition:
+  AllowInMultilineConditions: false
+  AllowSafeAssignment: true
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    ? "%I"
+    : "[]"
+    ? "%W"
+    : "[]"
+    ? "%i"
+    : "[]"
+    ? "%r"
+    : "{}"
+    ? "%w"
+    : "[]"
+    default: ()
+Style/PercentQLiterals:
+  EnforcedStyle: lower_case_q
+  SupportedStyles:
+    - lower_case_q
+    - upper_case_q
+Style/PreferredHashMethods:
+  EnforcedStyle: short
+  SupportedStyles:
+    - short
+    - verbose
+Style/RaiseArgs:
+  EnforcedStyle: exploded
+  SupportedStyles:
+    - compact
+    - exploded
+Style/RedundantReturn:
+  AllowMultipleReturnValues: false
+  Enabled: true
+Style/RegexpLiteral:
+  AllowInnerSlashes: false
+  EnforcedStyle: slashes
+  SupportedStyles:
+    - slashes
+    - percent_r
+    - mixed
+Style/RescueStandardError:
+  EnforcedStyle: explicit
+  SupportedStyles:
+    - implicit
+    - explicit
+Style/ReturnNil:
+  EnforcedStyle: return
+  SupportedStyles:
+    - return
+    - return_nil
+Style/SafeNavigation:
+  ConvertCodeThatCanStartToReturnNil: false
+  Whitelist:
+    - present?
+    - blank?
+    - presence
+    - try
+    - try!
+Style/Semicolon:
+  AllowAsExpressionSeparator: false
+  Enabled: true
+Style/SignalException:
+  EnforcedStyle: only_raise
+  SupportedStyles:
+    - only_raise
+    - only_fail
+    - semantic
+Style/SingleLineBlockParams:
+  Methods:
+    -
+      reduce:
+        - acc
+        - elem
+    -
+      inject:
+        - acc
+        - elem
+Style/SingleLineMethods:
+  AllowIfMethodIsEmpty: true
+Style/SpecialGlobalVars:
+  EnforcedStyle: use_english_names
+  SupportedStyles:
+    - use_perl_names
+    - use_english_names
+Style/StabbyLambdaParentheses:
+  EnforcedStyle: require_parentheses
+  SupportedStyles:
+    - require_parentheses
+    - require_no_parentheses
+Style/StringLiterals:
+  ConsistentQuotesInMultiline: false
+  Enabled: true
+  EnforcedStyle: single_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: single_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+Style/StringMethods:
+  PreferredMethods:
+    intern: to_sym
+Style/SymbolArray:
+  EnforcedStyle: percent
+  MinSize: 2
+  SupportedStyles:
+    - percent
+    - brackets
+Style/SymbolProc:
+  IgnoredMethods:
+    - respond_to
+    - define_method
+Style/TernaryParentheses:
+  AllowSafeAssignment: true
+  EnforcedStyle: require_no_parentheses
+  SupportedStyles:
+    - require_parentheses
+    - require_no_parentheses
+    - require_parentheses_when_complex
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: no_comma
+  SupportedStylesForMultiline:
+    - comma
+    - consistent_comma
+    - no_comma
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: no_comma
+  SupportedStylesForMultiline:
+    - comma
+    - consistent_comma
+    - no_comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: no_comma
+  SupportedStylesForMultiline:
+    - comma
+    - consistent_comma
+    - no_comma
+Style/TrivialAccessors:
+  AllowDSLWriters: false
+  AllowPredicates: true
+  ExactNameMatch: true
+  IgnoreClassMethods: false
+  Whitelist:
+    - to_ary
+    - to_a
+    - to_c
+    - to_enum
+    - to_h
+    - to_hash
+    - to_i
+    - to_int
+    - to_io
+    - to_open
+    - to_path
+    - to_proc
+    - to_r
+    - to_regexp
+    - to_str
+    - to_s
+    - to_sym
+Style/UnneededPercentQ:
+  Enabled: true
+Style/WordArray:
+  EnforcedStyle: percent
+  MinSize: 2
+  SupportedStyles:
+    - percent
+    - brackets
+  WordRegex: !ruby/regexp /\A[\p{Word}\n\t]+\z/
+Style/YodaCondition:
+  EnforcedStyle: all_comparison_operators
+  SupportedStyles:
+    - all_comparison_operators
+    - equality_operators_only
