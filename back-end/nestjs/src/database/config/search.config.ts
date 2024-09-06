@@ -1,23 +1,14 @@
 import { ConfigModule, ConfigService, registerAs } from '@nestjs/config';
 import { ElasticsearchModuleAsyncOptions } from '@nestjs/elasticsearch';
 
-import {
-  IsInt,
-  IsOptional,
-  IsString,
-  Max,
-  Min,
-  ValidateIf,
-} from 'class-validator';
+import { IsOptional, IsString, ValidateIf } from 'class-validator';
 import validateConfig from '../../utils/validate-config';
 import { SearchConfig } from './search-config.type';
 
 class EnvironmentVariablesValidator {
-  @ValidateIf((envValues) => !envValues.DATABASE_URL)
-  @IsInt()
-  @Min(0)
-  @Max(65535)
-  ELASTICSEARCH_NODE: number;
+  @ValidateIf((envValues) => !envValues.ELASTICSEARCH_NODE)
+  @IsString()
+  ELASTICSEARCH_NODE: string;
 
   @IsString()
   @IsOptional()

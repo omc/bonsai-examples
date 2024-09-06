@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './database/typeorm-config.service';
 import { HomeModule } from './home/home.module';
 import { DataSource, DataSourceOptions } from 'typeorm';
+import { SearchModule } from './database/search/search.module';
 
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   useClass: TypeOrmConfigService,
@@ -26,6 +27,7 @@ const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
     infrastructureDatabaseModule,
     MoviesModule,
     HomeModule,
+    SearchModule,
   ],
 })
 export class AppModule {}

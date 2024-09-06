@@ -22,6 +22,7 @@
     "add:property:to-relational": "hygen property add-to-relational",
     "postadd:property:to-relational": "npm run lint -- --fix",
     "seed:run:relational": "ts-node -r tsconfig-paths/register ./src/database/seeds/relational/run-seed.ts",
+    "seed:run:search": "ts-node -r tsconfig-paths/register ./src/database/seeds/search/run-seed.ts",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
