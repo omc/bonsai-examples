@@ -6,6 +6,10 @@ import validateConfig from '../../utils/validate-config';
 import { SearchConfig } from './search-config.type';
 
 class EnvironmentVariablesValidator {
+  @ValidateIf((envValues) => !envValues.BONSAI_URL)
+  @IsString()
+  BONSAI_URL: string;
+
   @ValidateIf((envValues) => !envValues.ELASTICSEARCH_NODE)
   @IsString()
   ELASTICSEARCH_NODE: string;
@@ -49,7 +53,7 @@ export default registerAs<SearchConfig>('elasticSearch', () => {
   validateConfig(process.env, EnvironmentVariablesValidator);
 
   return {
-    node: process.env.ELASTICSEARCH_NODE,
+    node: process.env.ELASTICSEARCH_NODE || process.env.BONSAI_URL,
     auth: {
       username: process.env.ELASTICSEARCH_USERNAME,
       password: process.env.ELASTICSEARCH_PASSWORD,
