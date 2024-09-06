@@ -7,10 +7,12 @@ import { SearchConfig } from './search-config.type';
 
 class EnvironmentVariablesValidator {
   @ValidateIf((envValues) => !envValues.BONSAI_URL)
+  @IsOptional()
   @IsString()
   BONSAI_URL: string;
 
   @ValidateIf((envValues) => !envValues.ELASTICSEARCH_NODE)
+  @IsOptional()
   @IsString()
   ELASTICSEARCH_NODE: string;
 

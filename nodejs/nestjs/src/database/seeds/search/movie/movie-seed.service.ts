@@ -14,15 +14,12 @@ export class MovieSeedService {
   ) {}
 
   async run() {
-    // Select all movies along with their IDs
-    const insertedMovies = await this.repository.find({});
-
-    /*
-      In a real application, you might consider using a bulk command.
-      We'll cover that in another post!
-     */
-    for (const movie of insertedMovies) {
-      await this.moviesSearchService.indexMovie(movie);
+    const exists = await this.moviesSearchService.existsIndex();
+    if (!exists.body) {
+      await this.moviesSearchService.createIndex();
+      await this.moviesSearchService.statusIndex();
+      const insertedMovies = await this.repository.find({});
+      await this.moviesSearchService.indexMovies(insertedMovies);
     }
   }
 }
