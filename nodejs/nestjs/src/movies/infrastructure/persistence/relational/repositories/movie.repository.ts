@@ -6,7 +6,7 @@ import { MovieEntity } from '../entities/movie.entity';
 import { NullableType } from '../../../../../utils/types/nullable.type';
 import { SortMovieDto } from '../../../../dto/query-movie.dto';
 import { Movie } from '../../../../domain/movie';
-import { MovieRepository } from '../../movieRepository';
+import { MovieRepository } from '../../movie.repository';
 import { MovieMapper } from '../mappers/movie.mapper';
 import { IPaginationOptions } from '../../../../../utils/types/pagination-options';
 
