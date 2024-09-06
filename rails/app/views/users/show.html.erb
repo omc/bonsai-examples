@@ -1,0 +1,39 @@
+<h3>User: <%= @user.id %> </h3>
+<div class="container">
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th scope="row">First name:</th>
+        <td><%= @user.first_name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Last name:</th>
+        <td><%= @user.last_name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Email:</th>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <th scope="row">Address:</th>
+        <td><%= @user.address %></td>
+      </tr>
+      <tr>
+        <th scope="row">City:</th>
+        <td><%= @user.city %></td>
+      </tr>
+      <tr>
+        <th scope="row">Zip-code</th>
+        <td><%= @user.zip_code %></td>
+      </tr>
+      <tr>
+        <th scope="row">Company name:</th>
+        <td><%= @user.company %></td>
+      </tr>
+      <tr>
+        <th scope="row">Company description:</th>
+        <td><%= @user.company_description %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
