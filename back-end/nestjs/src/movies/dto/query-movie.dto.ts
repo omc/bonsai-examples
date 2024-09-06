@@ -3,9 +3,10 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Min,
   ValidateNested,
 } from 'class-validator';
-import { Transform, Type, plainToInstance } from 'class-transformer';
+import { plainToInstance, Transform, Type } from 'class-transformer';
 import { Movie } from '../domain/movie';
 
 export class SortMovieDto {
@@ -20,6 +21,21 @@ export class SortMovieDto {
 }
 
 export class QueryMovieDto {
+  @ApiPropertyOptional()
+  @Transform(({ value }) => (value ? Number(value) : 0))
+  @Type(() => Number)
+  @Min(0)
+  @IsNumber()
+  @IsOptional()
+  offset?: number;
+
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(1)
+  startId?: number;
+
   @ApiPropertyOptional()
   @Transform(({ value }) => (value ? Number(value) : 1))
   @IsNumber()
