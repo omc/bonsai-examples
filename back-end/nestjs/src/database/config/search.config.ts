@@ -1,4 +1,5 @@
-import { registerAs } from '@nestjs/config';
+import { ConfigModule, ConfigService, registerAs } from '@nestjs/config';
+import { ElasticsearchModuleAsyncOptions } from '@nestjs/elasticsearch';
 
 import {
   IsInt,
@@ -26,6 +27,32 @@ class EnvironmentVariablesValidator {
   @IsOptional()
   ELASTICSEARCH_USERNAME: string;
 }
+
+export const elasticSearchModuleOptions: ElasticsearchModuleAsyncOptions = {
+  imports: [ConfigModule],
+  inject: [ConfigService],
+  useFactory: (configService: ConfigService) => {
+    const username = configService.get('elasticSearch.auth.username', {
+      infer: true,
+    });
+    const opts = {
+      node: configService.get('elasticSearch.node', { infer: true }),
+    };
+
+    if (username) {
+      const authOpts = {
+        auth: {
+          username: username,
+          password: configService.get('elasticSearch.auth.password', {
+            infer: true,
+          }),
+        },
+      };
+      return { ...opts, ...authOpts };
+    }
+    return opts;
+  },
+};
 
 export default registerAs<SearchConfig>('elasticSearch', () => {
   validateConfig(process.env, EnvironmentVariablesValidator);
