@@ -29,6 +29,7 @@ import { QueryMovieDto } from './dto/query-movie.dto';
 import { Movie } from './domain/movie';
 import { MoviesService } from './movies.service';
 import { infinityPagination } from '../utils/infinity-pagination';
+import { SearchResponseDto } from '../utils/dto/search-response.dto';
 
 @ApiTags('Movies')
 @Controller({
@@ -53,14 +54,23 @@ export class MoviesController {
   @Get()
   @HttpCode(HttpStatus.OK)
   async findAll(
+    @Query('search') search: string,
     @Query() query: QueryMovieDto,
-  ): Promise<InfinityPaginationResponseDto<Movie>> {
+  ): Promise<InfinityPaginationResponseDto<Movie> | SearchResponseDto<Movie>> {
     const page = query?.page ?? 1;
     let limit = query?.limit ?? 10;
     if (limit > 50) {
       limit = 50;
     }
 
+    if (search) {
+      return await this.moviesService.search(
+        search,
+        query?.offset,
+        query?.limit,
+        query?.startId,
+      );
+    }
     return infinityPagination(
       await this.moviesService.findManyWithPagination({
         sortOptions: query?.sort,
