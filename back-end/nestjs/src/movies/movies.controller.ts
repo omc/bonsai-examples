@@ -1,14 +1,15 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  Query,
+  Get,
+  HttpCode,
   HttpStatus,
-  HttpCode, NotFoundException,
+  NotFoundException,
+  Param,
+  Patch,
+  Post,
+  Query,
 } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -81,7 +82,9 @@ export class MoviesController {
     type: String,
     required: true,
   })
-  async findOne(@Param('title') title: Movie['title']): Promise<NullableType<Movie>> {
+  async findOne(
+    @Param('title') title: Movie['title'],
+  ): Promise<NullableType<Movie>> {
     const movie = await this.moviesService.findByTitle(title);
     if (!movie) throw new NotFoundException('movie not found');
     return movie;
