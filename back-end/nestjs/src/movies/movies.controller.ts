@@ -8,7 +8,7 @@ import {
   Delete,
   Query,
   HttpStatus,
-  HttpCode,
+  HttpCode, NotFoundException,
 } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -76,14 +76,15 @@ export class MoviesController {
     type: Movie,
   })
   @Get(':title')
-  @HttpCode(HttpStatus.OK)
   @ApiParam({
     name: 'title',
     type: String,
     required: true,
   })
-  findOne(@Param('title') title: Movie['title']): Promise<NullableType<Movie>> {
-    return this.moviesService.findByTitle(title);
+  async findOne(@Param('title') title: Movie['title']): Promise<NullableType<Movie>> {
+    const movie = await this.moviesService.findByTitle(title);
+    if (!movie) throw new NotFoundException('movie not found');
+    return movie;
   }
 
   @ApiOkResponse({
