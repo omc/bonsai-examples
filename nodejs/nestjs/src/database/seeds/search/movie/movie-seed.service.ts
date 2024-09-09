@@ -14,6 +14,7 @@ export class MovieSeedService {
   ) {}
 
   async run() {
+    // If index doesn't exist, create it and seed the database
     const exists = await this.moviesSearchService.existsIndex();
     if (!exists.body) {
       await this.moviesSearchService.createIndex();

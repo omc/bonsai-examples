@@ -6,6 +6,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
     "typeorm": "env-cmd ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:generate": "npm run typeorm -- --dataSource=src/database/data-source.ts migration:generate",
     "migration:create": "npm run typeorm -- migration:create",
@@ -41,7 +42,7 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^7.10.0",
+    "@elastic/elasticsearch": "7.13.0",
     "@nestjs/common": "10.4.1",
     "@nestjs/config": "3.2.3",
     "@nestjs/core": "10.4.1",
@@ -54,10 +55,12 @@
     "class-transformer": "0.5.1",
     "class-validator": "0.14.1",
     "dotenv": "16.4.5",
+    "env-cmd": "10.1.0",
     "pg": "8.12.0",
     "reflect-metadata": "0.2.2",
     "rimraf": "6.0.1",
     "rxjs": "7.8.1",
+    "tsconfig-paths": "4.2.0",
     "typeorm": "0.3.20"
   },
   "devDependencies": {
@@ -82,7 +85,6 @@
     "@types/supertest": "6.0.2",
     "@typescript-eslint/eslint-plugin": "8.4.0",
     "@typescript-eslint/parser": "8.4.0",
-    "env-cmd": "10.1.0",
     "eslint": "9.9.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
@@ -98,7 +100,6 @@
     "ts-jest": "29.2.3",
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",
-    "tsconfig-paths": "4.2.0",
     "tslib": "2.7.0",
     "typescript": "5.5.4"
   },
