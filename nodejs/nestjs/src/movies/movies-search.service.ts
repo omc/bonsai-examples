@@ -40,17 +40,6 @@ export class MoviesSearchService {
     return this.elasticsearchService.indices.create(request);
   }
 
-  async indexMovie(movie: MovieEntity): Promise<ApiResponse> {
-    const request: RequestParams.Index = {
-      index: this.index,
-      body: {
-        id: movie.id,
-        title: movie.title,
-      },
-    };
-    return this.elasticsearchService.index(request);
-  }
-
   async indexMovies(movies: MovieEntity[]): Promise<ApiResponse> {
     const idx = this.index;
     const body = movies.flatMap((movie) => {
