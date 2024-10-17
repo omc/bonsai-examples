@@ -30,6 +30,13 @@ export class MovieEntity extends EntityRelationalHelper {
   @Column({ type: String, unique: true, nullable: false })
   title: string;
 
+  @ApiProperty({
+    type: String,
+    example: '...\nUTAPAN: Chief says...\n...',
+  })
+  @Column({ type: String, nullable: true })
+  script: string;
+
   @ApiProperty()
   @CreateDateColumn()
   createdAt: Date | undefined;
