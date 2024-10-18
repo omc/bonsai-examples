@@ -19,7 +19,9 @@ export class MovieSeedService {
     if (!exists.body) {
       await this.moviesSearchService.createIndex();
       await this.moviesSearchService.statusIndex();
+      // Fetch movie titles from our relational database
       const insertedMovies = await this.repository.find({});
+      // Index the movies discovered
       await this.moviesSearchService.indexMovies(insertedMovies);
     }
   }
