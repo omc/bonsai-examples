@@ -1,5 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
+  IsArray,
+  IsEnum,
   IsNumber,
   IsOptional,
   IsString,
@@ -8,6 +10,11 @@ import {
 } from 'class-validator';
 import { plainToInstance, Transform, Type } from 'class-transformer';
 import { Movie } from '../domain/movie';
+
+export enum SearchTarget {
+  Title = 'title',
+  Script = 'script',
+}
 
 export class SortMovieDto {
   @ApiProperty()
@@ -56,4 +63,14 @@ export class QueryMovieDto {
   @ValidateNested({ each: true })
   @Type(() => SortMovieDto)
   sort?: SortMovieDto[] | null;
+
+  @ApiProperty({
+    type: [String],
+    default: [SearchTarget.Title],
+    required: false,
+  })
+  @IsEnum(SearchTarget, { each: true })
+  @IsOptional()
+  @IsArray()
+  targets: SearchTarget[];
 }

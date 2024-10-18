@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { NullableType } from '../utils/types/nullable.type';
-import { SortMovieDto } from './dto/query-movie.dto';
+import { SearchTarget, SortMovieDto } from './dto/query-movie.dto';
 import { MovieRepository } from './infrastructure/persistence/movie.repository';
 import { Movie } from './domain/movie';
 import { IPaginationOptions } from '../utils/types/pagination-options';
@@ -44,17 +44,18 @@ export class MoviesService {
 
   async search(
     text: string,
+    targets: SearchTarget[],
     offset?: number,
     limit?: number,
     startId?: number,
   ) {
     const { results, count } = await this.moviesSearchService.search(
       text,
+      targets,
       offset,
       limit,
       startId,
     );
-
     const ids = results.map((result) => result?.id);
     if (!ids.length) {
       return {

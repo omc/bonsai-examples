@@ -50,7 +50,11 @@ export class MoviesSearchService {
   async indexMovies(movies: MovieEntity[]): Promise<ApiResponse> {
     const idx = this.index;
     const body = movies.flatMap((movie) => {
-      const doc: MovieSearchDocument = { id: movie.id, title: movie.title };
+      const doc: MovieSearchDocument = {
+        id: movie.id,
+        title: movie.title,
+        script: movie.script,
+      };
       return [{ index: { _index: idx } }, doc];
     });
     const request: RequestParams.Bulk = {
@@ -80,10 +84,16 @@ export class MoviesSearchService {
     return result.count;
   }
 
-  async search(text: string, offset?: number, limit?: number, startId = 0) {
+  async search(
+    text: string,
+    targets: string[],
+    offset?: number,
+    limit?: number,
+    startId = 0,
+  ) {
     let separateCount = 0;
     if (startId) {
-      separateCount = await this.count(text, ['title']);
+      separateCount = await this.count(text, targets);
     }
     const params: RequestParams.Search = {
       index: this.index,
@@ -91,8 +101,9 @@ export class MoviesSearchService {
       size: limit,
       body: {
         query: {
-          match: {
-            title: text,
+          multi_match: {
+            query: text,
+            fields: targets,
           },
         },
       },

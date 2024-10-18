@@ -66,6 +66,7 @@ export class MoviesController {
     if (search) {
       return await this.moviesService.search(
         search,
+        query.targets,
         query?.offset,
         query?.limit,
         query?.startId,
