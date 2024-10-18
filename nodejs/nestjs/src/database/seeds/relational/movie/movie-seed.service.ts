@@ -42,6 +42,10 @@ export class MovieSeedService {
     }
   }
 
+  async revert() {
+    await this.repository.clear();
+  }
+
   /* eslint-disable @typescript-eslint/no-unused-vars */
   async saveTsvRow(
     repository: Repository<MovieEntity>,

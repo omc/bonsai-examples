@@ -43,3 +43,8 @@ There are multiple branches on the base repository which are relevant to this ap
    npm run start:dev
    ```
 
+## Extending
+
+For database migration generation, or generally working with typeORM, use the `npm run` commands defined in `package.json`!
+
+For example, after modifying the Movie model, generate a migration via ` npm run migration:generate MovieAddScript`.
