@@ -40,6 +40,13 @@ export class MoviesSearchService {
     return this.elasticsearchService.indices.create(request);
   }
 
+  async deleteIndex(): Promise<ApiResponse> {
+    const request: RequestParams.IndicesDelete = {
+      index: this.index,
+    };
+    return this.elasticsearchService.indices.delete(request);
+  }
+
   async indexMovies(movies: MovieEntity[]): Promise<ApiResponse> {
     const idx = this.index;
     const body = movies.flatMap((movie) => {
