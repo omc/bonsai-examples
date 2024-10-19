@@ -17,21 +17,30 @@ services:
     ports:
       - ${APP_PORT}:${APP_PORT}
 
-  # Apache License v2.0, January 2004
-  # Courtesy of the CNCF project, Jaeger @ https://github.com/jaegertracing/jaeger
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+  # Apache License v2.0, Oct 01, 2024
+  # Courtesy of https://opensearch.org/downloads.html
+  opensearch:
+    image: opensearchproject/opensearch:2.17.1
     environment:
       - discovery.type=single-node
+      - plugins.security.disabled=true
       - http.host=0.0.0.0
       - transport.host=127.0.0.1
-      - xpack.security.enabled=false  # Disable security features
-      - xpack.security.http.ssl.enabled=false  # Disable HTTPS
-      - action.destructive_requires_name=false
-      - xpack.monitoring.collection.enabled=false  # Disable monitoring features
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=passRT%^#234
+      - DISABLE_SECURITY_PLUGIN=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536  # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
+        hard: 65536
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
     ports:
       - "9200:9200"
   # End Apache License v2.0
 
 volumes:
   boilerplate-db:
+  opensearch-data:
