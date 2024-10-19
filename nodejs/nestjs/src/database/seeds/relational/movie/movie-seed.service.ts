@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { MovieEntity } from '../../../../movies/infrastructure/persistence/relational/entities/movie.entity';
 
 import { createReadStream } from 'fs';
-import { createInterface } from 'readline';
+import { parse } from 'csv-parse';
 import path from 'path';
 
 @Injectable()
@@ -19,25 +19,18 @@ export class MovieSeedService {
     const countMovies = await this.repository.count({});
 
     if (!countMovies) {
-      const rlIface = createInterface({
-        input: createReadStream(
-          path.join(__dirname, 'movie_titles_metadata.tsv'),
-        ),
-      });
+      const parser = createReadStream(
+        path.join(__dirname, 'movie_titles_and_script.csv'),
+      ).pipe(parse({ delimiter: ',', from_line: 2 }));
 
       /* In a real application, you might consider using a bulk command, like PostgreSQL's
          COPY (https://www.postgresql.org/docs/current/sql-copy.html)
        */
-      for await (const data of rlIface) {
-        const items = data.split('\t') as [
-          string,
-          string,
-          string,
-          string,
-          string,
-          string,
-        ];
-        await this.saveTsvRow(this.repository, ...items);
+      for await (const data of parser) {
+        await this.saveCsvRow(
+          this.repository,
+          ...(data as [string, string, string, string, string, string, string]),
+        );
       }
     }
   }
@@ -47,7 +40,7 @@ export class MovieSeedService {
   }
 
   /* eslint-disable @typescript-eslint/no-unused-vars */
-  async saveTsvRow(
+  async saveCsvRow(
     repository: Repository<MovieEntity>,
     id: string,
     title: string,
@@ -55,10 +48,12 @@ export class MovieSeedService {
     rating: string,
     numVotes: string,
     categoriesUnprocessed: string,
+    script,
   ): Promise<void> {
     await repository.save(
       repository.create({
         title: title,
+        script: script,
       }),
     );
   }
