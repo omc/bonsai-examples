@@ -29,9 +29,35 @@ export class MoviesSearchService {
     const request: RequestParams.IndicesCreate = {
       body: {
         settings: {
-          index: {
-            number_of_shards: 1,
-            number_of_replicas: 1, // for local development
+          'index.knn': true,
+          default_pipeline: 'nlp-ingest-pipeline',
+          number_of_shards: 1,
+          number_of_replicas: 1, // for local development
+        },
+        mappings: {
+          properties: {
+            id: {
+              type: 'text',
+            },
+            title: {
+              type: 'text',
+            },
+            script: {
+              type: 'text',
+            },
+            script_embedding_vector: {
+              type: 'knn_vector',
+              dimension: 768,
+              method: {
+                engine: 'nmslib',
+                space_type: 'l2',
+                name: 'hnsw',
+                parameters: {
+                  ef_construction: 128,
+                  m: 24,
+                },
+              },
+            },
           },
         },
       },
