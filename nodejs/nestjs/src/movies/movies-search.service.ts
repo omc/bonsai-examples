@@ -30,7 +30,6 @@ export class MoviesSearchService {
       body: {
         settings: {
           'index.knn': true,
-          default_pipeline: 'nlp-ingest-pipeline',
           number_of_shards: 1,
           number_of_replicas: 1, // for local development
         },
@@ -47,7 +46,7 @@ export class MoviesSearchService {
             },
             script_embedding_vector: {
               type: 'knn_vector',
-              dimension: 768,
+              dimension: 1536,
               method: {
                 engine: 'nmslib',
                 space_type: 'l2',
@@ -80,6 +79,7 @@ export class MoviesSearchService {
         id: movie.id,
         title: movie.title,
         script: movie.script,
+        script_embedding_vector: movie.script_embedding_vector,
       };
       return [{ index: { _index: idx } }, doc];
     });

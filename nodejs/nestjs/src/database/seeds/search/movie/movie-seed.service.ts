@@ -33,7 +33,7 @@ export class MovieSeedService {
       const embeddingRequests: Array<Promise<any>> = [];
       const moviesLen = insertedMovies.length;
       const rateLimiter = new RateLimiterMemory({
-        points: 6, // 5 points
+        points: 6, // 6 points
         duration: 1, // Per second
       });
 
@@ -74,7 +74,8 @@ export class MovieSeedService {
       Promise.all(embeddingRequests)
         .then(async () => {
           // Index the movies discovered
-          await this.moviesSearchService.indexMovies(insertedMovies);
+          const res =
+            await this.moviesSearchService.indexMovies(insertedMovies);
         })
         .catch((err) => {
           Logger.log('Encountered fatal error during OpenAI embedding: ', err);
