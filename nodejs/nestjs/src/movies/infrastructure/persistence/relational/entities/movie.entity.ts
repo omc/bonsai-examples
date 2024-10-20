@@ -37,6 +37,8 @@ export class MovieEntity extends EntityRelationalHelper {
   @Column({ type: String, nullable: true })
   script: string;
 
+  script_embedding_vector: number[];
+
   @ApiProperty()
   @CreateDateColumn()
   createdAt: Date | undefined;
