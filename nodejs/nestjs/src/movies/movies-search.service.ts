@@ -1,11 +1,11 @@
-import {Injectable, Logger} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { RequestParams } from '@elastic/elasticsearch';
 import { MovieEntity } from './infrastructure/persistence/relational/entities/movie.entity';
 import { ApiResponse, Context } from '@elastic/elasticsearch/lib/Transport';
 import { MovieSearchDocument } from './interfaces/movie-search-document.interface';
-import OpenAI from "openai";
-import {SearchTarget} from "./dto/query-movie.dto";
+import OpenAI from 'openai';
+import { SearchTarget } from './dto/query-movie.dto';
 
 @Injectable()
 export class MoviesSearchService {
@@ -151,11 +151,14 @@ export class MoviesSearchService {
         k: 5,
       };
     }
-    Logger.log('query: ' + JSON.stringify(query));
     const params: RequestParams.Search = {
       index: this.index,
       from: offset,
       size: limit,
+      _source_excludes: [
+        SearchTarget.Script,
+        SearchTarget.ScriptEmbeddingVector,
+      ],
       body: {
         query: query,
       },
@@ -182,12 +185,8 @@ export class MoviesSearchService {
 
     // We're only requesting one embedding; so there should only be one entry!
     if (query_embedding !== undefined && query_embedding.data.length === 1) {
-      Logger.log(
-        'Returning an embedding: ' + query_embedding.data[0].embedding,
-      );
       return Promise.resolve(query_embedding.data[0].embedding);
     }
-    Logger.log('Returning null');
     return Promise.resolve(null);
   }
 }
