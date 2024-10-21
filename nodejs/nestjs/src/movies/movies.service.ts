@@ -49,6 +49,7 @@ export class MoviesService {
     limit?: number,
     startId?: number,
   ) {
+    // Search with Elasticsearch/OpenSearch
     const { results, count } = await this.moviesSearchService.search(
       text,
       targets,
@@ -63,7 +64,9 @@ export class MoviesService {
         count,
       };
     }
+    // Optionally, hydrate with the relational database
     const data = await this.movieRepository.find({
+      select: ['id', 'title'],
       where: { id: In(ids) },
     });
 
