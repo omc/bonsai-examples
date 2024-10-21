@@ -74,12 +74,17 @@ export class MovieSeedService {
       Promise.all(embeddingRequests)
         .then(async () => {
           // Index the movies discovered
-          const res =
-            await this.moviesSearchService.indexMovies(insertedMovies);
+          await this.moviesSearchService.indexMovies(insertedMovies);
+          Logger.log(
+            'Completed indexing of movies (' +
+              insertedMovies.length.toString() +
+              ' total)',
+          );
         })
         .catch((err) => {
           Logger.log('Encountered fatal error during OpenAI embedding: ', err);
         });
+      Logger.log('Search seeding complete!');
     }
   }
 

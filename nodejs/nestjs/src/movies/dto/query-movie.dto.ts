@@ -14,6 +14,7 @@ import { Movie } from '../domain/movie';
 export enum SearchTarget {
   Title = 'title',
   Script = 'script',
+  ScriptEmbeddingVector = 'script_embedding_vector',
 }
 
 export class SortMovieDto {

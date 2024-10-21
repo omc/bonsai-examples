@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, Logger} from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { RequestParams } from '@elastic/elasticsearch';
 import { MovieEntity } from './infrastructure/persistence/relational/entities/movie.entity';
 import { ApiResponse, Context } from '@elastic/elasticsearch/lib/Transport';
 import { MovieSearchDocument } from './interfaces/movie-search-document.interface';
+import OpenAI from "openai";
+import {SearchTarget} from "./dto/query-movie.dto";
 
 @Injectable()
 export class MoviesSearchService {
@@ -121,17 +123,41 @@ export class MoviesSearchService {
     if (startId) {
       separateCount = await this.count(text, targets);
     }
+
+    // Default query handling is to perform a text query
+    let query: Record<string, any> = {
+      multi_match: {
+        query: text,
+        fields: targets,
+      },
+    };
+
+    // If this is a query targeting the script embedding vector, adjust
+    // the query accordingly!
+    if (
+      targets.length === 1 &&
+      targets.includes(SearchTarget.ScriptEmbeddingVector)
+    ) {
+      const openaiClient = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+      });
+
+      query = {
+        knn: {},
+      };
+
+      query['knn'][SearchTarget.ScriptEmbeddingVector] = {
+        vector: await this.generateQueryEmbeddings(openaiClient, text),
+        k: 5,
+      };
+    }
+    Logger.log('query: ' + JSON.stringify(query));
     const params: RequestParams.Search = {
       index: this.index,
       from: offset,
       size: limit,
       body: {
-        query: {
-          multi_match: {
-            query: text,
-            fields: targets,
-          },
-        },
+        query: query,
       },
     };
     const { body: result } = await this.elasticsearchService.search(params);
@@ -141,5 +167,27 @@ export class MoviesSearchService {
       count: startId ? separateCount : count,
       results,
     };
+  }
+
+  async generateQueryEmbeddings(
+    openaiClient: OpenAI,
+    query: string,
+    numCharsAllowed: number = 15000,
+  ): Promise<number[] | null> {
+    const query_embedding = await openaiClient.embeddings.create({
+      model: 'text-embedding-ada-002',
+      input: query.slice(0, numCharsAllowed),
+      encoding_format: 'float',
+    });
+
+    // We're only requesting one embedding; so there should only be one entry!
+    if (query_embedding !== undefined && query_embedding.data.length === 1) {
+      Logger.log(
+        'Returning an embedding: ' + query_embedding.data[0].embedding,
+      );
+      return Promise.resolve(query_embedding.data[0].embedding);
+    }
+    Logger.log('Returning null');
+    return Promise.resolve(null);
   }
 }
