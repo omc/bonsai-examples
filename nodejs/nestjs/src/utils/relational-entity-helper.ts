@@ -1,7 +1,8 @@
-import { instanceToPlain } from 'class-transformer';
+import { Exclude, instanceToPlain } from 'class-transformer';
 import { AfterLoad, BaseEntity } from 'typeorm';
 
 export class EntityRelationalHelper extends BaseEntity {
+  @Exclude()
   __entity?: string;
 
   @AfterLoad()
