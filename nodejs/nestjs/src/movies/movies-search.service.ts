@@ -4,7 +4,7 @@ import { RequestParams } from '@elastic/elasticsearch';
 import { MovieEntity } from './infrastructure/persistence/relational/entities/movie.entity';
 import { ApiResponse, Context } from '@elastic/elasticsearch/lib/Transport';
 import { MovieSearchDocument } from './interfaces/movie-search-document.interface';
-import OpenAI from 'openai';
+import { Mistral } from '@mistralai/mistralai';
 import { SearchTarget } from './dto/query-movie.dto';
 
 @Injectable()
@@ -138,8 +138,8 @@ export class MoviesSearchService {
       targets.length === 1 &&
       targets.includes(SearchTarget.ScriptEmbeddingVector)
     ) {
-      const openaiClient = new OpenAI({
-        apiKey: process.env.OPENAI_API_KEY,
+      const aiClient = new Mistral({
+        apiKey: process.env.MISTRALAI_API_KEY,
       });
 
       query = {
@@ -147,7 +147,7 @@ export class MoviesSearchService {
       };
 
       query['knn'][SearchTarget.ScriptEmbeddingVector] = {
-        vector: await this.generateQueryEmbeddings(openaiClient, text),
+        vector: await this.generateQueryEmbeddings(aiClient, text),
         k: 5,
       };
     }
@@ -173,19 +173,20 @@ export class MoviesSearchService {
   }
 
   async generateQueryEmbeddings(
-    openaiClient: OpenAI,
+    aiClient: Mistral,
     query: string,
     numCharsAllowed: number = 15000,
   ): Promise<number[] | null> {
-    const query_embedding = await openaiClient.embeddings.create({
-      model: 'text-embedding-ada-002',
-      input: query.slice(0, numCharsAllowed),
-      encoding_format: 'float',
+    const query_embedding = await aiClient.embeddings.create({
+      model: 'mistral-embed',
+      inputs: query.slice(0, numCharsAllowed),
     });
 
     // We're only requesting one embedding; so there should only be one entry!
     if (query_embedding !== undefined && query_embedding.data.length === 1) {
-      return Promise.resolve(query_embedding.data[0].embedding);
+      if (Array.isArray(query_embedding.data[0].embedding)) {
+        return Promise.resolve(query_embedding.data[0].embedding);
+      }
     }
     return Promise.resolve(null);
   }
