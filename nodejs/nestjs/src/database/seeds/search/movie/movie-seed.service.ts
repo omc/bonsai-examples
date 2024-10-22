@@ -4,8 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MovieEntity } from '../../../../movies/infrastructure/persistence/relational/entities/movie.entity';
 import { MoviesSearchService } from '../../../../movies/movies-search.service';
-import OpenAI from 'openai';
 import { RateLimiterMemory, RateLimiterRes } from 'rate-limiter-flexible';
+import Groq from 'groq-sdk';
 
 @Injectable()
 export class MovieSeedService {
@@ -23,12 +23,12 @@ export class MovieSeedService {
       await this.moviesSearchService.statusIndex();
       // Fetch movie titles from our relational database
       const insertedMovies = await this.repository.find({});
-      // Add OpenAI Embeddings
+      // Add Groq Embeddings
       //
       // Note: In a production app, this should probably be done in the background,
       // along with an update of the document in Elasticsearch/OpenSearch.
-      const openaiClient = new OpenAI({
-        apiKey: process.env.OPENAI_API_KEY,
+      const client = new Groq({
+        apiKey: process.env.GROQ_API_KEY,
       });
       const embeddingRequests: Array<Promise<any>> = [];
       const moviesLen = insertedMovies.length;
@@ -45,11 +45,11 @@ export class MovieSeedService {
         // node-rate-limiter-flexible fit our use case.
         while (shouldRetry) {
           await rateLimiter
-            .consume('openAIEmbedding', 3)
+            .consume('aiembedding', 3)
             .then(() => {
               shouldRetry = false;
               Logger.log(
-                'OpenAI Embedding: processing ' +
+                'Groq Embedding: processing ' +
                   movie.title +
                   ' (' +
                   (index + 1).toString() +
@@ -59,7 +59,7 @@ export class MovieSeedService {
               );
 
               embeddingRequests.push(
-                this.generateScriptEmbeddings(openaiClient, movie),
+                this.generateScriptEmbeddings(client, movie),
               );
             })
             .catch(async (rlres: RateLimiterRes) => {
@@ -82,26 +82,27 @@ export class MovieSeedService {
           );
         })
         .catch((err) => {
-          Logger.log('Encountered fatal error during OpenAI embedding: ', err);
+          Logger.log('Encountered fatal error during Groq embedding: ', err);
         });
       Logger.log('Search seeding complete!');
     }
   }
 
   async generateScriptEmbeddings(
-    openaiClient: OpenAI,
+    client: Groq,
     movie: MovieEntity,
     numCharsAllowed: number = 15000,
   ) {
-    const script_embedding = await openaiClient.embeddings.create({
-      model: 'text-embedding-ada-002',
+    const script_embedding = await client.embeddings.create({
+      model: 'llama-3.2-90b-text-preview',
       input: movie.script.slice(0, numCharsAllowed),
       encoding_format: 'float',
     });
 
     // We're only requesting one embedding; so there should only be one entry!
     if (script_embedding !== undefined && script_embedding.data.length === 1) {
-      movie.script_embedding_vector = script_embedding.data[0].embedding;
+      movie.script_embedding_vector = script_embedding.data[0]
+        .embedding as number[];
     }
   }
 
