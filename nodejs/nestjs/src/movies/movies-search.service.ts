@@ -48,7 +48,7 @@ export class MoviesSearchService {
             },
             script_embedding_vector: {
               type: 'knn_vector',
-              dimension: 1536,
+              dimension: 1024,
               method: {
                 engine: 'nmslib',
                 space_type: 'l2',
