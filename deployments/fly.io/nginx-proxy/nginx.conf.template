@@ -1,0 +1,33 @@
+# This is a template file. Environment variables will be substituted on container start.
+worker_processes auto;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+  upstream bonsai_elasticsearch {
+    server ${BONSAI_HOST};
+  }
+
+  server {
+    listen 9200;
+    listen [::]:9200;
+    server_name _;
+
+    location / {
+      proxy_pass https://bonsai_elasticsearch;
+
+      proxy_set_header Host ${BONSAI_HOST};
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_set_header Authorization "${BONSAI_AUTH_HEADER}";
+
+      proxy_connect_timeout 60s;
+      proxy_send_timeout    60s;
+      proxy_read_timeout    60s;
+    }
+  }
+}

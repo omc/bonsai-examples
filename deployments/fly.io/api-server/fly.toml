@@ -1,0 +1,36 @@
+# fly.toml app configuration file generated for bonsai-book-server on 2025-09-02T18:14:12-05:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'bonsai-book-server'
+primary_region = 'ord'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[env]
+  PORT = '3000'
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 3000
+  processes = ['app']
+
+  [[services.ports]]
+    port = 80
+    handlers = ['http']
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ['tls', 'http']
+
+  [[services.tcp_checks]]
+    interval = '15s'
+    timeout = '2s'
+    grace_period = '5s'
+
+[[vm]]
+  size = 'shared-cpu-1x'
+  memory = '256mb'

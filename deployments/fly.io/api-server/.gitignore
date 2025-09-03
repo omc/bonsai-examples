@@ -1,0 +1,25 @@
+# Node.js
+node_modules/
+npm-debug.log*
+.npm/
+
+# TypeScript
+*.tsbuildinfo
+dist/
+build/
+coverage/
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.envrc
+.env.*
+.env.*.local
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
